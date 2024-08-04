@@ -3,170 +3,111 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Comprehensive Registration Form</title>
+    <title>Feedback Form</title>
     <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
       form {
-        max-width: 500px;
-        margin: 0 auto;
+        max-width: 600px;
+        margin: auto;
       }
       label {
         display: block;
-        margin: 10px 0 5px;
+        margin-top: 10px;
       }
-      input[type="text"],
-      input[type="email"],
-      input[type="password"],
-      input[type="date"],
-      select {
+      textarea {
         width: 100%;
-        padding: 8px;
-        margin: 5px 0 15px;
+        height: 100px;
+        resize: vertical;
       }
-      input[type="radio"],
-      input[type="checkbox"] {
-        margin-right: 5px;
+      input[type="radio"] {
+        margin-top: 5px;
       }
-      .radio-group,
-      .checkbox-group {
-        display: flex;
-        justify-content: space-between;
-        margin: 5px 0 15px;
+      .feedback-policy-link {
+        margin-top: 10px;
+        display: inline-block;
       }
-      .strength-indicator {
-        margin-top: -10px;
-        margin-bottom: 15px;
-        color: red;
+      .feedback-policy {
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
       }
-      .file-input {
-        padding: 8px;
-        margin: 5px 0 15px;
-      }
-      button {
-        padding: 10px 20px;
-        background-color: #4caf50;
-        color: white;
-        border: none;
-        cursor: pointer;
+      .range-value {
+        display: inline-block;
+        margin-left: 10px;
       }
     </style>
   </head>
   <body>
-    <form id="registrationForm">
-      <label for="fullName">Full Name:</label>
-      <input type="text" id="fullName" name="fullName" required />
+    <form>
+      <label for="name"><strong>Name:</strong></label>
+      <input type="text" id="name" name="name" />
 
-      <label for="email">Email:</label>
+      <label for="email"><strong>Email:</strong> (required)</label>
       <input type="email" id="email" name="email" required />
 
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required />
+      <label for="comments"><strong>Comments:</strong></label>
+      <textarea
+        id="comments"
+        name="comments"
+        placeholder="Enter your feedback here."
+      ></textarea>
 
-      <label for="confirmPassword">Confirm Password:</label>
+      <label for="rating"><strong>Rate our service:</strong></label>
       <input
-        type="password"
-        id="confirmPassword"
-        name="confirmPassword"
-        required
+        type="range"
+        id="rating"
+        name="rating"
+        min="0"
+        max="10"
+        value="5"
+        oninput="document.getElementById('range-value').textContent = this.value"
       />
+      <span id="range-value" class="range-value">5</span>
 
-      <label for="passwordStrength">Password Strength:</label>
+      <label><strong>Feedback Type:</strong></label>
       <input
-        type="password"
-        id="passwordStrength"
-        name="passwordStrength"
-        required
+        type="radio"
+        id="compliment"
+        name="feedback-type"
+        value="Compliment"
       />
-      <div class="strength-indicator" id="strengthIndicator"></div>
-
-      <label for="dob">Date of Birth:</label>
-      <input type="date" id="dob" name="dob" required />
-
-      <label for="gender">Gender:</label>
-      <select id="gender" name="gender" required>
-        <option value="" disabled selected>Select your gender</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-        <option value="other">Other</option>
-      </select>
-
-      <label>Subscription Options:</label>
-      <div class="radio-group">
-        <label
-          ><input type="radio" name="subscription" value="free" required />
-          Free</label
-        >
-        <label
-          ><input type="radio" name="subscription" value="basic" /> Basic</label
-        >
-        <label
-          ><input type="radio" name="subscription" value="premium" />
-          Premium</label
-        >
-      </div>
-
-      <label>Hobbies:</label>
-      <div class="checkbox-group">
-        <label
-          ><input type="checkbox" name="hobbies" value="reading" />
-          Reading</label
-        >
-        <label
-          ><input type="checkbox" name="hobbies" value="traveling" />
-          Traveling</label
-        >
-        <label
-          ><input type="checkbox" name="hobbies" value="coding" /> Coding</label
-        >
-        <label
-          ><input type="checkbox" name="hobbies" value="sports" /> Sports</label
-        >
-      </div>
-
-      <label for="profilePicture">Profile Picture:</label>
+      <label for="compliment">Compliment</label>
       <input
-        type="file"
-        id="profilePicture"
-        name="profilePicture"
-        accept="image/*"
-        class="file-input"
-        required
+        type="radio"
+        id="suggestion"
+        name="feedback-type"
+        value="Suggestion"
       />
+      <label for="suggestion">Suggestion</label>
+      <input
+        type="radio"
+        id="complaint"
+        name="feedback-type"
+        value="Complaint"
+      />
+      <label for="complaint">Complaint</label>
 
-      <button type="submit">Submit</button>
+      <label>
+        <input type="checkbox" id="policy" name="policy" required />
+        <em>I agree to the feedback policy</em> (required)
+      </label>
+
+      <a href="#feedback-policy" class="feedback-policy-link"
+        ><u>Read the feedback policy</u></a
+      >
+
+      <button type="submit"><strong>Submit</strong></button>
     </form>
 
-    <script>
-      document.getElementById("dob").addEventListener("change", function () {
-        const dob = new Date(this.value);
-        const today = new Date();
-        const age = today.getFullYear() - dob.getFullYear();
-        const m = today.getMonth() - dob.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
-          age--;
-        }
-        if (age < 18) {
-          alert("You must be at least 18 years old.");
-          this.value = "";
-        }
-      });
-
-      document
-        .getElementById("passwordStrength")
-        .addEventListener("input", function () {
-          const strengthIndicator =
-            document.getElementById("strengthIndicator");
-          const password = this.value;
-          const strongPassword = new RegExp(
-            "^(?=.[a-z])(?=.[A-Z])(?=.[0-9])(?=.[!@#\\$%\\^&\\*])(?=.{8,})"
-          );
-          if (strongPassword.test(password)) {
-            strengthIndicator.textContent = "Strong";
-            strengthIndicator.style.color = "green";
-          } else {
-            strengthIndicator.textContent = "Weak";
-            strengthIndicator.style.color = "red";
-          }
-        });
-    </script>
+    <div id="feedback-policy" class="feedback-policy">
+      <h2>Feedback Policy</h2>
+      <p>
+        Your feedback is important to us. Please ensure your comments are
+        respectful and constructive.
+      </p>
+    </div>
   </body>
 </html>
