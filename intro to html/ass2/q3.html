@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Product Order Form</title>
+  </head>
+  <body>
+    <form>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" /><br /><br />
+
+      <label for="email" required>Email:</label>
+      <input type="email" id="email" name="email" /><br /><br />
+
+      <label for="category">Product Category:</label>
+      <select id="category" name="category">
+        <option value="electronics">Electronics</option>
+        <option value="books">Books</option>
+        <option value="clothing">Clothing</option></select
+      ><br /><br />
+
+      <label for="product">Product:</label>
+      <select id="product" name="product">
+        <!-- Options will be dynamically updated based on the selected category using JavaScript --></select
+      ><br /><br />
+
+      <label for="quantity">Quantity:</label>
+      <input
+        type="number"
+        id="quantity"
+        name="quantity"
+        min="1"
+        max="10"
+        step="1"
+      /><br /><br />
+
+      <label for="deliveryDateTime">Preferred Delivery Date and Time:</label>
+      <input type="datetime-local" id="deliveryDateTime" name="deliveryDateTime"
+      min="<%= DateTime.Now.ToString("yyyy-MM-ddTHH:mm") %>"><br /><br />
+
+      <label for="notes">Additional Notes:</label>
+      <textarea id="notes" name="notes"></textarea><br /><br />
+
+      <label>Payment Options:</label><br />
+      <input
+        type="checkbox"
+        id="creditCard"
+        name="payment"
+        value="creditCard"
+      />
+      <label for="creditCard">Credit Card</label><br />
+
+      <input type="checkbox" id="paypal" name="payment" value="paypal" />
+      <label for="paypal">PayPal</label><br />
+
+      <input
+        type="checkbox"
+        id="bankTransfer"
+        name="payment"
+        value="bankTransfer"
+      />
+      <label for="bankTransfer">Bank Transfer</label><br /><br />
+
+      <input type="submit" value="Submit" />
+    </form>
+  </body>
+</html>
