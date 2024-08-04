@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comprehensive Registration Form</title>
+    <style>
+      form {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      label {
+        display: block;
+        margin: 10px 0 5px;
+      }
+      input[type="text"],
+      input[type="email"],
+      input[type="password"],
+      input[type="date"],
+      select {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0 15px;
+      }
+      input[type="radio"],
+      input[type="checkbox"] {
+        margin-right: 5px;
+      }
+      .radio-group,
+      .checkbox-group {
+        display: flex;
+        justify-content: space-between;
+        margin: 5px 0 15px;
+      }
+      .strength-indicator {
+        margin-top: -10px;
+        margin-bottom: 15px;
+        color: red;
+      }
+      .file-input {
+        padding: 8px;
+        margin: 5px 0 15px;
+      }
+      button {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="registrationForm">
+      <label for="fullName">Full Name:</label>
+      <input type="text" id="fullName" name="fullName" required />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required />
+
+      <label for="confirmPassword">Confirm Password:</label>
+      <input
+        type="password"
+        id="confirmPassword"
+        name="confirmPassword"
+        required
+      />
+
+      <label for="passwordStrength">Password Strength:</label>
+      <input
+        type="password"
+        id="passwordStrength"
+        name="passwordStrength"
+        required
+      />
+      <div class="strength-indicator" id="strengthIndicator"></div>
+
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" name="dob" required />
+
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender" required>
+        <option value="" disabled selected>Select your gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label>Subscription Options:</label>
+      <div class="radio-group">
+        <label
+          ><input type="radio" name="subscription" value="free" required />
+          Free</label
+        >
+        <label
+          ><input type="radio" name="subscription" value="basic" /> Basic</label
+        >
+        <label
+          ><input type="radio" name="subscription" value="premium" />
+          Premium</label
+        >
+      </div>
+
+      <label>Hobbies:</label>
+      <div class="checkbox-group">
+        <label
+          ><input type="checkbox" name="hobbies" value="reading" />
+          Reading</label
+        >
+        <label
+          ><input type="checkbox" name="hobbies" value="traveling" />
+          Traveling</label
+        >
+        <label
+          ><input type="checkbox" name="hobbies" value="coding" /> Coding</label
+        >
+        <label
+          ><input type="checkbox" name="hobbies" value="sports" /> Sports</label
+        >
+      </div>
+
+      <label for="profilePicture">Profile Picture:</label>
+      <input
+        type="file"
+        id="profilePicture"
+        name="profilePicture"
+        accept="image/*"
+        class="file-input"
+        required
+      />
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <script>
+      document.getElementById("dob").addEventListener("change", function () {
+        const dob = new Date(this.value);
+        const today = new Date();
+        const age = today.getFullYear() - dob.getFullYear();
+        const m = today.getMonth() - dob.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+          age--;
+        }
+        if (age < 18) {
+          alert("You must be at least 18 years old.");
+          this.value = "";
+        }
+      });
+
+      document
+        .getElementById("passwordStrength")
+        .addEventListener("input", function () {
+          const strengthIndicator =
+            document.getElementById("strengthIndicator");
+          const password = this.value;
+          const strongPassword = new RegExp(
+            "^(?=.[a-z])(?=.[A-Z])(?=.[0-9])(?=.[!@#\\$%\\^&\\*])(?=.{8,})"
+          );
+          if (strongPassword.test(password)) {
+            strengthIndicator.textContent = "Strong";
+            strengthIndicator.style.color = "green";
+          } else {
+            strengthIndicator.textContent = "Weak";
+            strengthIndicator.style.color = "red";
+          }
+        });
+    </script>
+  </body>
+</html>
